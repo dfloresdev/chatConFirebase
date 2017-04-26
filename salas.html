@@ -8,12 +8,13 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Chat</title>
-        <?php
-        include_once './librerias/librerias.php';
-        ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <link rel="stylesheet" type="text/css" href="../css/stilos.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/semantic-ui/2.2.9/semantic.min.css" />
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
     </head>
     <body>
+        <br />
         <br />
         <div class="ui container center aligned grid">
             <h1 class="ui ">Inicio sesión</h1>
@@ -21,29 +22,7 @@ and open the template in the editor.
         <br />
         <br />
         <div class="ui container center aligned grid">
-            <div class="ui form center aligned grid">
-                <form method="post">
-                    <label for="correo" >Correo</label>
-                    <input type="email" id="correo" placeholder="correo" />
-
-                    <label for="pass">Contraseña</label>
-                    <input type="password" id="pass" placeholder="Contraseña" />
-                    <br />
-                    <br />
-                    <input type="submit" value="Iniciar Sesión" class="ui button green">
-                    <input type="button" value="Registrar" onclick="
-                                registrarUsuario(
-                                $('#correo').val(),//con el #hace refencia al id
-                                $('#pass').val(),
-                                'mensajes'
-                                        );" 
-                                class="ui button blue">
-                    
-<!--                    <p class="ui err" id="mensajes"></p>-->
-                    <div id="mensajes"></div>
-                    
-                </form>
-            </div>
+            <input type="submit" value="Cerrar Sesión" class="ui button green" onclick="cerrarSesion();">
         </div>
         <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -56,9 +35,9 @@ and open the template in the editor.
             $(document).ready(function ()
             {
                 firebase.auth().onAuthStateChanged(function (user) {
-                    if (user) {
-                        console.log(user);
-//                        window.location="salas.html";
+                    if (!user) {
+//                        console.log(user);
+                        window.location = "/";
                     } else {
 //                        console.log(user);
                     }
