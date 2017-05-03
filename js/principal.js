@@ -40,3 +40,43 @@ function iniciarSesion(email, password)
         // ...
     });
 }
+
+function inicioConFacebook()
+{
+    var provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('user_birthday');
+    
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        console.log("si entra");
+        console.log(user);
+        
+        var usr = {};
+        usr.correo = user.email;
+        usr.nombre = user.displayName;
+        usr.photo = user.photoURL;
+        usr.token = token;
+        
+        firebase.database().ref().child("usuario").child(user.uid).set(usr, function(error)
+        {
+//            console.log(error);
+            window.location="salas.html";
+        });
+        
+        
+        // ...
+    }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        $("#mensaje").html(error.message + error.code);
+        // ...
+    });
+}

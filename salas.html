@@ -21,9 +21,74 @@ and open the template in the editor.
         </div>
         <br />
         <br />
+
+        <div class="ui container center aligned grid">
+            <div class="ui card">
+                <center>
+                <div class="ui medium rounded image">
+                    <img class="" id="avatar">
+                </div>
+                </center>
+                <div class="content">
+                    <a class="header" id="nombre"></a>
+                    <div class="meta">
+                        <span class="date">Joined in 2017</span>
+                    </div>
+                    <div class="description">
+                        Kristy is an art director living in New York.
+                    </div>
+                </div>
+                <div class="extra content">
+                    <a>
+                        <i class="user icon"></i>
+                        22 Friends
+                    </a>
+                </div>
+            </div>
+
+            <!--<img id="avatar" />-->
+            <!--<h4 id="nombre" class=""></h4>-->
+        </div>
+
+        <br />
+        <br />
+
+        <div class="ui container  aligned grid">
+            <div class="ui relaxed divided list">
+                <div class="item">
+                    <i class="large github middle aligned icon"></i>
+                    <div class="content">
+                        <a class="header">Semantic-Org/Semantic-UI</a>
+                        <div class="description">Updated 10 mins ago</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="large github middle aligned icon"></i>
+                    <div class="content">
+                        <a class="header">Semantic-Org/Semantic-UI-Docs</a>
+                        <div class="description">Updated 22 mins ago</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="large github middle aligned icon"></i>
+                    <div class="content">
+                        <a class="header">Semantic-Org/Semantic-UI-Meteor</a>
+                        <div class="description">Updated 34 mins ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <br />
+        <br />
+
         <div class="ui container center aligned grid">
             <input type="submit" value="Cerrar Sesión" class="ui button green" onclick="cerrarSesion();">
         </div>
+        
+        <br />
+        <br />
+        
         <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -32,19 +97,21 @@ and open the template in the editor.
         <script src="js/conexionAFirebase.js"></script>
         <script src="js/principal.js"></script>
         <script>
-            $(document).ready(function ()
-            {
-                firebase.auth().onAuthStateChanged(function (user) {
-                    if (!user) {
+                $(document).ready(function ()
+                {
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        if (!user) {
 //                        console.log(user);
-                        window.location = "/";
-                    } else {
+                            window.location = "/";
+                        } else {
 //                        console.log(user);
-                    }
+                            $("#avatar").attr("src", user.photoURL);
+                            $("#nombre").html(user.displayName);
+                        }
+                    });
                 });
-            });
         </script>
-        
-        
+
+
     </body>
 </html>

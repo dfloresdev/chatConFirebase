@@ -15,8 +15,11 @@ and open the template in the editor.
     </head>
     <body>
         <br />
-        <div class="ui container center aligned grid">
-            <h1 class="ui ">Inicio sesión</h1>
+        <div class="ui container">
+            <div class="ui grid  center aligned">
+                <h1 class="ui">Inicio sesión</h1>
+            </div>
+            
         </div>
         <br />
         <br />
@@ -37,6 +40,10 @@ and open the template in the editor.
                                 $('#pass').val(),
                                 'mensajes'
                                         );" 
+                                class="ui button blue">
+                    <input type="button" value="Registrar con Facebook" onclick="
+                           inicioConFacebook();
+                           " 
                                 class="ui button blue">
                     
 <!--                    <p class="ui err" id="mensajes"></p>-->
