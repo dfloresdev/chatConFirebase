@@ -102,7 +102,7 @@ function consultarSalas()
 //                    '</div>'+
 //                    '</div>'
 
-                    '<div class = "item">' +
+                    '<div class = "item" onclic="">' +
                     '<img class = "ui avatar tiny image" src = "' + sala.val().urlFoto + '" >' +
                     '<div class = "content" >' +
                     '<div class = "header" >Nombre de sala: ' + sala.val().nombreSala + '</div>' +
@@ -113,3 +113,20 @@ function consultarSalas()
         });
     });
 }
+
+revisar lo que tienes en visual studio
+
+function registrarSala(nombre)
+{
+    console.log("si entra");
+    firebase.database().ref().child("salas").push().set(
+            {
+                
+                nombreSala: nombre,
+                numPersonas: 0,
+                urlFoto: "https://www.w3schools.com/css/img_fjords.jpg"
+            }
+    );
+}
+
+function 

@@ -53,11 +53,23 @@ and open the template in the editor.
         <br />
         <br />
 
+        <div class="ui container center aligned grid">
+            <div class="ui form center aligned grid">
+                <form method="post">
+                    <label for="nomSala" >Agregar nueva sala:</label>
+                    <input type="text" id="nomSala" placeholder="Nombre sala" />
+                    <br />
+                    <br />
+                    <input type="submit" value="Registar Sala" class="ui button green" onclick="registrarSala($('#nomSala').val())">
+                </form>
+            </div>
+        </div>
+
         <div class="ui container aligned grid">
             <div class="ui relaxed divided list" id="salas">
             </div>
         </div>
-        
+
         <div class="ui container aligned grid">
             <div class="ui ordered horizontal list" id="salas">
             </div>
@@ -69,6 +81,8 @@ and open the template in the editor.
         <div class="ui container center aligned grid">
             <input type="submit" value="Cerrar Sesión" class="ui button green" onclick="cerrarSesion();">
         </div>
+
+
 
         <br />
         <br />
@@ -91,7 +105,7 @@ and open the template in the editor.
 //                        console.log(user);
                             $("#avatar").attr("src", user.photoURL);
                             $("#nombre").html(user.displayName);
-                            
+
                         }
                     });
                     consultarSalas();
