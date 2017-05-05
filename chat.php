@@ -11,94 +11,68 @@ and open the template in the editor.
         <?php
         include_once './librerias/librerias.php';
         ?>
+        <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
     </head>
     <body>
     <!--<center>-->
         <br />
         <br />
         <div class=" ui container aligned center">
-        <div class="ui threaded comments">
-            <h3 class="ui dividing header">Nombre del chat</h3>
-            <div class="comment">
-                <a class="avatar">
-                    <img src="/images/avatar/small/matt.jpg">
-                </a>
-                <div class="content">
-                    <a class="author">Matt</a>
-                    <div class="metadata">
-                        <span class="date">Today at 5:42PM</span>
-                    </div>
-                    <div class="text">
-                        How artistic!
-                    </div>
-                    <div class="actions">
-                        <a class="reply">Respuesta</a>
-                    </div>
-                </div>
+            <div class="ui threaded comments">
+            <div class="ui threaded comments" id="nomSala">
             </div>
-            <div class="comment">
-                <a class="avatar">
-                    <img src="/images/avatar/small/elliot.jpg">
-                </a>
-                <div class="content">
-                    <a class="author">Elliot Fu</a>
-                    <div class="metadata">
-                        <span class="date">Yesterday at 12:30AM</span>
-                    </div>
-                    <div class="text">
-                        <p>This has been very useful for my research. Thanks as well!</p>
-                    </div>
-                    <div class="actions">
-                        <a class="reply">Reply</a>
-                    </div>
-                </div>
-                <div class="comments">
-                    <div class="comment">
+                <div class="ui comments" id="msj">
+
+
+<!--                    <div class="comment">
                         <a class="avatar">
-                            <img src="/images/avatar/small/jenny.jpg">
+                            <img src="/images/avatar/small/matt.jpg">
                         </a>
                         <div class="content">
-                            <a class="author">Jenny Hess</a>
+                            <a class="author">Matt</a>
                             <div class="metadata">
-                                <span class="date">Just now</span>
+                                <span class="date">Today at 5:42PM</span>
                             </div>
                             <div class="text">
-                                Elliot you are always so right :)
+                                How artistic!
                             </div>
                             <div class="actions">
                                 <a class="reply">Reply</a>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
+
+
                 </div>
+                <form class="ui reply form">
+                    <div class="field">
+                        <textarea id="areaMensaje"></textarea>
+                    </div>
+                    <div class="ui blue labeled submit icon button" 
+                         onclick="mandarMensaje($('#areaMensaje').val(), getUrlVars()['sala']);">
+                        <i class="icon edit"></i> Contestar
+                    </div>
+                </form>
             </div>
-            <div class="comment">
-                <a class="avatar">
-                    <img src="/images/avatar/small/joe.jpg">
-                </a>
-                <div class="content">
-                    <a class="author">Joe Henderson</a>
-                    <div class="metadata">
-                        <span class="date">5 days ago</span>
-                    </div>
-                    <div class="text">
-                        Dude, this is awesome. Thanks so much
-                    </div>
-                    <div class="actions">
-                        <a class="reply">Reply</a>
-                    </div>
-                </div>
-            </div>
-            <form class="ui reply form">
-                <div class="field">
-                    <textarea></textarea>
-                </div>
-                <div class="ui blue labeled submit icon button" onclick="mandarMensaje()">
-                    <i class="icon edit"></i> Contestar
-                </div>
-            </form>
         </div>
-        </div>
-    <!--</center>-->
+        <!--</center>-->
+
+
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+        <script src="js/conexionAFirebase.js"></script>
+        <script src="js/principal.js"></script>
+
+        <script type="text/javascript">
+                             $(document).ready(function ()
+                             {
+                                 nomDeSala(getUrlVars()['sala']);
+                                 consultarChat(getUrlVars()['sala']);
+                             });
+        </script>
+
     </body>
 </html>

@@ -102,7 +102,8 @@ function consultarSalas()
 //                    '</div>'+
 //                    '</div>'
 
-                    '<div class = "item" onclic="">' +
+                    '<div class = "item" onclick="abrirChat(\'' + sala.key + '\');">' +
+//                  '<li class="media" onclick="abrirChat(\'' + sala.key + '\');">' +
                     '<img class = "ui avatar tiny image" src = "' + sala.val().urlFoto + '" >' +
                     '<div class = "content" >' +
                     '<div class = "header" >Nombre de sala: ' + sala.val().nombreSala + '</div>' +
@@ -114,19 +115,103 @@ function consultarSalas()
     });
 }
 
-revisar lo que tienes en visual studio
+
 
 function registrarSala(nombre)
 {
     console.log("si entra");
     firebase.database().ref().child("salas").push().set(
             {
-                
                 nombreSala: nombre,
                 numPersonas: 0,
-                urlFoto: "https://www.w3schools.com/css/img_fjords.jpg"
+                urlFoto: "http://vignette2.wikia.nocookie.net/dragonball/images/3/3d/Goku_Kaioken_Kamehameha.jpeg/revision/latest?cb=20130205160705&path-prefix=es"
             }
     );
 }
 
-function 
+
+
+function abrirChat(sala) {
+    window.location = "chat.php?sala=" + sala;
+}
+
+
+//function registrarSala(nombre) {
+////    var salaObj={};
+////    salaObj.nombreSala=nombre;
+////var salaObj = {nombreSala:nombre, numPersonas:0}
+//    firebase.database().ref().child("salas").push().set(
+//            {
+//                nombreSala: nombre,
+//                numPersonas: 0,
+//                urlFoto: "https://www.voicechatapi.com/static/img/chat.png"
+//            });
+//}
+
+function mandarMensaje(mensaje, sala) {
+    console.log("Si estoy entrando mensaje: " + mensaje + " de sala: " + sala);
+
+    firebase.database().ref().child("mensajes").child(sala).push().set(
+            {
+                msg: mensaje,
+                urlUsuario: firebase.auth().currentUser.photoURL,
+                timeStr: new Date().toUTCString(),
+                timeLong: new Date().getTime(),
+                nombreUsuario: firebase.auth().currentUser.displayName
+            });
+    $("#areaMensaje").val("");  
+}
+
+
+function getUrlVars() {
+
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+
+function nomDeSala(idSala)
+{
+    console.log("id de sala:" + idSala);
+    firebase.database().ref().child("salas").child(idSala).on("value", function (salas)
+    {
+        $('#nomSala').append('<h3 class="ui dividing header">Nombre de Sala: ' + salas.val().nombreSala + '</h3>');
+    });
+//    consultarChat(idSala);
+}
+
+function consultarChat(idSala)
+{
+    firebase.database().ref().child("mensajes").child(idSala).on("value", function (conversaciones)
+    {
+        //este es para limpiar y no las duplique
+        $("#msj").html("");
+        conversaciones.forEach(function (mensaje)
+        {
+            console.log(mensaje.val());
+
+            $("#msj").append(
+                    '<div class = "comment" >' +
+                    '<a class = "avatar" >' +
+                    '<img src = "' + mensaje.val().urlUsuario + '" >' +
+                    '</a>' +
+                    '<div class = "content" >' +
+                    '<a class = "author" >' + mensaje.val().nombreUsuario + '</a>' +
+                    '<div class = "metadata" >' +
+                    '<span class = "date" >' + mensaje.val().timeStr + '</span>' +
+                    '</div>' +
+                    '<div class = "text" >' +
+                    mensaje.val().msg +
+                    '</div>' +
+                    '<div class = "actions" >' +
+                    '<a class = "reply" >' + mensaje.val().timeLong + '</a>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+                    );
+        });
+    });
+}
