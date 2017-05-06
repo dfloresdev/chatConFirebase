@@ -132,7 +132,7 @@ function registrarSala(nombre)
 
 
 function abrirChat(sala) {
-    window.location = "chat.php?sala=" + sala;
+    window.location = "chat.html?sala=" + sala;
 }
 
 
