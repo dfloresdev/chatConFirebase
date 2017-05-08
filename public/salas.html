@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Chat</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <link rel="stylesheet" type="text/css" href="../css/stilos.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/semantic-ui/2.2.9/semantic.min.css" />
+        <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    </head>
+    <body>
+        <br />
+        <br />
+        <div class="ui container center aligned grid">
+            <h1 class="ui ">Chat</h1>
+        </div>
+        <br />
+        <br />
+
+        <div class="ui container center aligned grid">
+            <div class="ui card">
+                <center>
+                    <div class="ui medium rounded image">
+                        <img class="" id="avatar">
+                    </div>
+                </center>
+                <div class="content">
+                    <a class="header" id="nombre"></a>
+                    <div class="meta">
+                        <span class="date">Joined in 2017</span>
+                    </div>
+                    <div class="description">
+                        Obtener Descripción de facebook
+                    </div>
+                </div>
+                <div class="extra content">
+                    <a>
+                        <i class="user icon"></i>
+                        22 Amigo en Facebook
+                    </a>
+                </div>
+            </div>
+
+            <!--<img id="avatar" />-->
+            <!--<h4 id="nombre" class=""></h4>-->
+        </div>
+
+        <br />
+        <br />
+
+        <div class="ui container center aligned grid">
+            <div class="ui form center aligned grid">
+                <form method="post">
+                    <label for="nomSala" >Agregar nueva sala:</label>
+                    <input type="text" id="nomSala" placeholder="Nombre sala" />
+                    <br />
+                    <br />
+                    <input type="submit" value="Registar Sala" class="ui button green" onclick="registrarSala($('#nomSala').val())">
+                </form>
+            </div>
+        </div>
+
+        <div class="ui container aligned grid">
+            <div class="ui relaxed divided list" id="salas">
+            </div>
+        </div>
+
+<!--        <div class="ui container aligned grid">
+            <div class="ui ordered horizontal list" id="salas">
+            </div>
+        </div>-->
+
+        <br />
+        <br />
+
+        <div class="ui container center aligned grid">
+            <input type="submit" value="Cerrar Sesión" class="ui button green" onclick="cerrarSesion();">
+        </div>
+
+
+
+        <br />
+        <br />
+
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+        <script src="js/conexionAFirebase.js"></script>
+        <script src="js/principal.js"></script>
+        <script>
+                $(document).ready(function ()
+                {
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        if (!user) {
+//                        console.log(user);
+                            window.location = "/";
+                        } else {
+//                        console.log(user);
+                            $("#avatar").attr("src", user.photoURL);
+                            $("#nombre").html(user.displayName);
+
+                        }
+                    });
+                    consultarSalas();
+                });
+        </script>
+
+
+    </body>
+</html>
