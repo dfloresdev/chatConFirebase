@@ -41,29 +41,51 @@ function iniciarSesion(email, password)
     });
 }
 
+function informacionDePerfil()
+{
+    var user = firebase.auth().currentUser;
+
+    if (user != null) {
+        user.providerData.forEach(function (profile) {
+            console.log("============== informacion de perfil");
+            console.log(profile);
+            console.log("Sign-in provider: " + profile.providerId);
+            console.log("  Provider-specific UID: " + profile.uid);
+            console.log("  Name: " + profile.displayName);
+            console.log("  Email: " + profile.email);
+            console.log("  Photo URL: " + profile.photoURL);
+        });
+    }
+}
+
 function inicioConFacebook()
 {
     var provider = new firebase.auth.FacebookAuthProvider();
+    var provider2 = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_birthday');
+    provider2.addScope('public_profile');
     
-    firebase.auth().signInWithPopup(provider).then(function (result) {
+    console.log(provider2);
+    
+    firebase.auth().signInWithPopup(provider2).then(function (result) {
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
         console.log("si entra");
-        console.log(user);
 
         var usr = {};
-        usr.correo = user.email;
-        usr.nombre = user.displayName;
-        usr.photo = user.photoURL;
-        usr.token = token;
+//        usr.correo = user.email;
+//        usr.nombre = user.displayName;
+//        usr.photo = user.photoURL;
+//        usr.token = token;
+        
+        informacionDePerfil();
 
         firebase.database().ref().child("usuario").child(user.uid).set(usr, function (error)
         {
 //            console.log(error);
-            window.location = "salas.html";
+//            window.location = "salas.html";
         });
 
 
